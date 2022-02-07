@@ -1,4 +1,4 @@
-const { Country, Turism } = require ('../db');
+const { Country, Activity } = require ('../db');
 const axios = require('axios');
 
 async function getDbData (req, res) {
@@ -14,8 +14,8 @@ async function getDbData (req, res) {
                 defaults: {
                     flag: country.flags[0],
                     continent: country.continents[0],
-                    capital: country.capital,
-                    subregion: country.subregion,
+                    capital: country.capital ? country.capital[0] : "Not found" ,
+                    subregion: country.subregion ? country.subregion : "Not found",
                     area: country.area,
                     poblation: country.population
                 }
@@ -23,7 +23,7 @@ async function getDbData (req, res) {
         })
         const apiData = await Country.findAll({
             include: {
-                model: Turism,
+                model: Activity,
                 attributes: ['name', 'dificulty', 'duration', 'season'],
                     through: {
                         attributes: [],
@@ -31,8 +31,8 @@ async function getDbData (req, res) {
             }
         })
         return apiData;
-    } catch (err) {
-        return console.log(err);
+    } catch (error) {
+        return console.log(error);
     }
 }
 

@@ -1,12 +1,12 @@
 //Router import
 const { Router } = require('express');
 const countryRouter = require('./Countries');
-const turismRouter = require('./Turism');
+const activityRouter = require('./Activity');
 
 const router = Router();
 
 // Router configuration
 router.use('/countries', countryRouter);
-router.use('/turism', turismRouter);
+router.use('/activity', activityRouter);
 
 module.exports = router;

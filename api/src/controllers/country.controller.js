@@ -1,4 +1,4 @@
-const { Country, Turism } = require ('../db');
+const { Country, Activity } = require ('../db');
 const {Op} = require('sequelize');
 const { getDbData } = require('./api.controller');
 
@@ -10,7 +10,7 @@ async function getCountries (req, res) {
     //If the query parameter exists, the names that match that parameter are returned
     try {
         const list = await Country.findAll({
-            include: Turism,
+            include: Activity,
             where: {
                 name: {
                     [Op.substring]: `${name}`
@@ -19,8 +19,8 @@ async function getCountries (req, res) {
         })
         list.length ? res.send(list.map(country => country)) :
         res.status(404).send({message: "Country does not found"});
-    }catch(e) {
-        console.log(e);
+    }catch(error) {
+        console.log(error);
     }
 }
 
@@ -32,7 +32,7 @@ async function getByCountryId (req, res) {
         const country = await Country.findAll({
             where:{ id: id },
             include: {
-                model: Turism,
+                model: Activity,
                 attributes: ['name', 'dificulty', 'duration', 'season'],
                     through: {
                         attributes: [],
@@ -40,7 +40,7 @@ async function getByCountryId (req, res) {
             }
         })
         res.send(country);
-    } catch (err) {
+    } catch (error) {
         res.status(404).send({ message: 'Should enter a valid ID'})
     }
 }

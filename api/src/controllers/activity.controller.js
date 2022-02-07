@@ -1,10 +1,10 @@
-const { Country, Turism } = require('../db');
+const { Country, Activity } = require('../db');
 
 async function createActivity (req, res) {
     //Create a tourist activity and relate it to a country.
-    const {id, name, dificulty, duration, season} = req.body;
+    const { id, name, dificulty, duration, season } = req.body;
     try {
-        const newActivity = await Turism.create({
+        const newActivity = await Activity.create({
             name,
             id,
             dificulty,
@@ -18,8 +18,8 @@ async function createActivity (req, res) {
         })
         newActivity.addCountries(country);
         res.send({message: 'Activity created successfully'});
-    }catch(err) {
-        console.log(err)
+    }catch(error) {
+        console.log(error)
     };
 }
 
