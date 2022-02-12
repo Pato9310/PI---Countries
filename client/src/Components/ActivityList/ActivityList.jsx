@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector } from "react-redux";
 import Activity from '../Activity/Activity';
+import NavBar from '../NavBar/NavBar';
 
 const ActivityList = () => {
     const activities = useSelector( state => state.activities);
     return (
-        <div>
+        <div className="activityListContainer">
+            <NavBar/>
             {
                 activities?.map( activity => {
                     return (
